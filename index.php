@@ -30,12 +30,12 @@
             <div class="row flex-column align-items-center">
                 <div class="bg-white col-5 mb-3">
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item text-start p-0 d-flex align-items-center" v-for="singleLang,i in ListPL">
+                        <li class="list-group-item text-start p-0 d-flex align-items-center" v-for="singleLang,i in ListPL" key="singleLang.id">
                             <div class="img-container me-3">
-                                <img :src="singleLang.logo" alt="">
+                                <img class="img" :src="singleLang.logo" alt="">
                             </div>
                             <div class="input-group my-2 d-flex align-items-center">
-                                <span @click="checkedItem(singleLang)" :class="singleLang.done ? 'text-decoration-line-through':''" class="me-auto">{{singleLang.name}}</span>
+                                <span @click="checkedItem(singleLang,i)" :class="singleLang.done ? 'text-decoration-line-through':''" class="me-auto">{{singleLang.name}}</span>
                                 <button @click="deleteItem(i)" class="input-group-text bg-danger" id="basic-addon2"><i class=" text-white fa-solid fa-trash"></i></button>
                             </div>
                         </li>

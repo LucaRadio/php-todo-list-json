@@ -19,7 +19,6 @@ createApp({
         fetchLangList() {
             axios.get("./api/programmingLanguageList.php")
                 .then(resp => {
-                    console.log(resp.data);
                     this.ListPL = resp.data;
                 })
         },
@@ -34,22 +33,28 @@ createApp({
 
             this.newLang = "";
         },
-        checkedItem(singleLang) {
+        checkedItem(singleLang, i) {
+            const img = document.querySelectorAll(".img-container");
             if (!singleLang.done) {
-                singleLang.done = true
+                img[i].style = "filter:grayscale(1)"
+                singleLang.done = true;
             } else {
-                singleLang.done = false
+                img[i].style = "filter:grayscale(0)"
+                singleLang.done = false;
             }
 
         },
 
         deleteItem(singleLang) {
-            axios.post("./api/removeLang.php", singleLang, {
-                Headers: { "Content-Type": 'multipart/form-data' }
-            })
-                .then(resp => {
-                    this.fetchLangList();
+
+            if (window.confirm("Are you sure to delete this item?")) {
+                axios.post("./api/removeLang.php", singleLang, {
+                    Headers: { "Content-Type": 'multipart/form-data' }
                 })
+                    .then(resp => {
+                        this.fetchLangList();
+                    })
+            }
         }
     },
     mounted() {
